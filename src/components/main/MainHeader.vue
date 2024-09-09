@@ -1,10 +1,5 @@
 <script setup lang="ts">
 import { symOutlinedModeHeat } from '@quasar/extras/material-symbols-outlined';
-// const leftDrawerOpen = ref(false);
-
-// function toggleLeftDrawer() {
-//     leftDrawerOpen.value = !leftDrawerOpen.value;
-// }
 </script>
 
 <template>
@@ -17,11 +12,10 @@ import { symOutlinedModeHeat } from '@quasar/extras/material-symbols-outlined';
             </q-toolbar-title>
             <div>
                 <q-btn flat no-caps aria-label="Entrar">Entrar</q-btn>
-                <q-btn no-caps color="primary" aria-label="Cadastrar"
-                    >Cadastre-se</q-btn
-                >
+                <q-btn no-caps color="primary" aria-label="Cadastrar">
+                    Cadastre-se
+                </q-btn>
             </div>
         </q-toolbar>
     </q-header>
-    <!-- <q-drawer v-model="leftDrawerOpen" show-if-above bordered> </q-drawer> -->
 </template>

@@ -1,21 +1,33 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { outlinedAllInclusive } from '@quasar/extras/material-icons-outlined';
 
 type Mode = 'normal' | 'auto';
+type Color = 'red' | 'white' | 'grey';
 
 const selectedMode = ref<Mode>('normal');
-
 const selectedValue = ref<number | null>(null);
+const selectedColor = ref<Color>('red');
+const autoBets = ref<number | null>(null);
+
+const moneyFormat = {
+    decimal: ',',
+    thousands: '.',
+    prefix: '',
+    suffix: '',
+    precision: 2,
+    masked: false,
+};
 </script>
 
 <template>
     <div class="q-px-sm">
-        <div class="btn-select q-pa-xs">
+        <div class="btn-select row q-pa-xs">
             <q-btn
                 no-caps
                 :flat="selectedMode !== 'normal'"
                 :color="selectedMode === 'normal' ? 'dark' : ''"
-                class="q-px-xl q-py-sm"
+                class="q-px-xl q-py-sm col"
                 size="sm"
                 @click="selectedMode = 'normal'"
             >
@@ -26,7 +38,7 @@ const selectedValue = ref<number | null>(null);
                 no-caps
                 :flat="selectedMode !== 'auto'"
                 :color="selectedMode === 'auto' ? 'dark' : ''"
-                class="q-px-xl q-py-sm"
+                class="q-px-xl q-py-sm col"
                 size="sm"
                 @click="selectedMode = 'auto'"
             >
@@ -37,16 +49,15 @@ const selectedValue = ref<number | null>(null);
         <div class="q-mt-lg row">
             <q-input
                 borderless
-                v-model="selectedValue"
+                v-model.lazy="selectedValue"
                 label="Quantia"
-                color="grey-5"
-                dense
                 class="bg-dark q-px-md text-caption col-8"
-                rounded
+                color="grey-5"
+                mask="#############"
             >
-                <template v-slot:append
-                    ><span class="text-body2">R$</span></template
-                >
+                <template v-slot:append>
+                    <span class="text-body2">R$</span>
+                </template>
             </q-input>
             <q-btn
                 outline
@@ -67,26 +78,86 @@ const selectedValue = ref<number | null>(null);
         <div class="q-mt-lg">
             <span class="light-grey">Selecionar Cor</span>
             <div class="row gutter-x-sm">
-                <q-btn class="col q-ma-xs q-py-sm" color="primary" no-caps>
+                <q-btn
+                    class="col q-ma-xs q-py-sm"
+                    :class="
+                        selectedColor === 'red' ? 'selected-color-border' : ''
+                    "
+                    color="primary"
+                    no-caps
+                    @click="selectedColor = 'red'"
+                >
                     x2
                 </q-btn>
                 <q-btn
                     class="col q-ma-xs q-py-sm"
+                    :class="
+                        selectedColor === 'white'
+                            ? 'selected-color-border red'
+                            : ''
+                    "
                     color="white"
                     text-color="primary"
                     no-caps
+                    @click="selectedColor = 'white'"
                 >
                     x14
                 </q-btn>
-                <q-btn class="col q-ma-xs q-py-sm" color="grey" no-caps>
+                <q-btn
+                    class="col q-ma-xs q-py-sm"
+                    :class="
+                        selectedColor === 'grey' ? 'selected-color-border' : ''
+                    "
+                    color="grey"
+                    no-caps
+                    @click="selectedColor = 'grey'"
+                >
                     x2
                 </q-btn>
             </div>
+
+            <div class="q-mt-lg">
+                <q-input
+                    borderless
+                    v-model.number="autoBets"
+                    mask="###########"
+                    label="Total de Apostas"
+                    color="grey-5"
+                    dense
+                    min="0"
+                    class="bg-dark q-px-md text-caption"
+                    rounded
+                >
+                    <template v-slot:append>
+                        <span v-if="!autoBets" class="text-body2">
+                            <q-icon :name="outlinedAllInclusive" size="sm" />
+                        </span>
+                    </template>
+                </q-input>
+            </div>
+
+            <q-btn
+                color="primary"
+                class="full-width q-mt-lg q-py-md font-weight-bold"
+                no-caps
+                size="0.9em"
+            >
+                Começar o Jogo
+            </q-btn>
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
+.selected-color-border {
+    &.red {
+        border-color: $primary;
+    }
+
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
 .btn-select {
     border: 1px solid $grey;
     color: $light-grey !important;
