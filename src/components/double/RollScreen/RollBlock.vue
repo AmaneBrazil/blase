@@ -19,7 +19,7 @@ const props = defineProps<{ option: RollOption; mini?: boolean }>();
             <q-icon
                 v-if="props.option.icon"
                 color="primary"
-                :size="props.mini ? 'sm' : 'xxl'"
+                :size="props.mini ? 'sm' : 'xl'"
                 :name="symOutlinedModeHeat"
             />
             <span v-else :class="!props.mini ? 'text-h6' : ''" class="block">

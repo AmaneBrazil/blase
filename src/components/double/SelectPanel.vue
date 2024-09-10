@@ -10,14 +10,14 @@ const selectedValue = ref<number | null>(null);
 const selectedColor = ref<Color>('red');
 const autoBets = ref<number | null>(null);
 
-const moneyFormat = {
-    decimal: ',',
-    thousands: '.',
-    prefix: '',
-    suffix: '',
-    precision: 2,
-    masked: false,
-};
+// const moneyFormat = {
+//     decimal: ',',
+//     thousands: '.',
+//     prefix: '',
+//     suffix: '',
+//     precision: 2,
+//     masked: false,
+// };
 </script>
 
 <template>
@@ -150,12 +150,11 @@ const moneyFormat = {
 
 <style lang="scss" scoped>
 .selected-color-border {
+    border: 2px solid white;
+    border-radius: 4px;
     &.red {
         border-color: $primary;
     }
-
-    border: 2px solid white;
-    border-radius: 4px;
 }
 
 .btn-select {
